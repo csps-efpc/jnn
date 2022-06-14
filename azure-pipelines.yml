@@ -1,0 +1,53 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+
+steps:
+  - task: Cache@2
+    inputs:
+      key: 'maven | "$(Agent.OS)" | **/pom.xml'
+      restoreKeys: |
+        maven | "$(Agent.OS)"
+        maven
+      path: $(MAVEN_CACHE_FOLDER)
+    displayName: Cache Maven local repo
+
+  # - script: mvn install -B -e
+
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: 'clean install site'
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'jnn-distributionsite/pom.xml'
+      mavenOptions: '-Xmx3072m -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: false
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: 'assembly:single'
+
+  - publish: $(System.DefaultWorkingDirectory)/jnn-distributionsite/target/jnn-distributionsite-1.0-SNAPSHOT-site
+    artifact: site
+  - publish: $(System.DefaultWorkingDirectory)/jnnevalmicroservice/target/justneuralnets-evalmicroservice-1.0-SNAPSHOT-bin.jar
+    artifact: jnnmicroservice.jar
+  - publish: $(System.DefaultWorkingDirectory)/justneuralnets-ui/target/jusneuralnets-ui-1.0-SNAPSHOT-bin.jar
+    artifact: jnn-ui.jar

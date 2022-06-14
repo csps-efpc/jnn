@@ -1,0 +1,43 @@
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/h
+elp/error_hotspot.xml
+hs_err_pid*
+/JNNModel/target/
+/JNNModel/best-model.jnn
+/JNNModel/best-model.mdl
+/justneuralnets-ui/target/
+/jnnevalmicroservice/target/
+/justneuralnets-ui/nbproject/
+/JNNModel/nbproject/
+/Snowball/target/
+/target/
+/jnn-word2vec/target/
+/justneuralnets-ui/word2vec.w2v
+/jnn-word2vec/word2vec.w2v
+/.idea/
+/jnn-distributionsite/target/
+/jnnevalmicroservice/nbproject/
+/corpus/
+/corpus-fr/
+/jnn-word2vec/word2vec-en.w2v
+/jnn-word2vec/word2vec-fr.w2v

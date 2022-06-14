@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.212">
+    <children>
+        <MenuBar VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#actionNew" text="New"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionOpen" text="Open…"/>
+                        <Menu mnemonicParsing="false" text="Open Recent"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionClose" text="Close"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionSave" text="Save"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionSaveAs" text="Save As…"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionRevert" text="Revert"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionPreferences" text="Preferences…"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionQuit" text="Quit"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Undo"/>
+                        <MenuItem mnemonicParsing="false" text="Redo"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Cut"/>
+                        <MenuItem mnemonicParsing="false" text="Copy"/>
+                        <MenuItem mnemonicParsing="false" text="Paste"/>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Select All"/>
+                        <MenuItem mnemonicParsing="false" text="Unselect All"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#actionAbout" text="About JNN"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <center>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
+                         BorderPane.alignment="CENTER">
+                    <tabs>
+                        <Tab text="Data Source">
+                            <content>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <top>
+                                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                            <items>
+                                                <Button mnemonicParsing="false" onAction="#actionSelectDataSourceFle"
+                                                        text="Select File"/>
+                                            </items>
+                                        </ToolBar>
+                                    </top>
+                                    <center>
+                                        <WebView fx:id="dataSourceWebView" prefHeight="200.0" prefWidth="200.0"
+                                                 BorderPane.alignment="CENTER"/>
+                                    </center>
+                                </BorderPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Fields">
+                            <content>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn prefWidth="116.0" text="Field Name"/>
+                                                <TableColumn prefWidth="97.0" text="Purpose"/>
+                                                <TableColumn prefWidth="108.0" text="Data Type"/>
+                                                <TableColumn prefWidth="123.0" text="Parameters"/>
+                                            </columns>
+                                        </TableView>
+                                    </center>
+                                </BorderPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Network Layout"/>
+                    </tabs>
+                </TabPane>
+            </center>
+        </BorderPane>
+    </children>
+</VBox>

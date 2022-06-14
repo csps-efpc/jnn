@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="rootContainer" prefHeight="400.0" prefWidth="640.0"
+      xmlns="http://javafx.com/javafx/8.0.212"
+      fx:controller="com.handshape.justneuralnets.ui.InteractiveDesignUIController">
+    <children>
+        <MenuBar VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#actionNew" text="New"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionOpen" text="Load Scheme…"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionClose" text="Close"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionSave" text="Save Scheme"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionSaveAs" text="Save Scheme As…"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionPreferences" text="Preferences…"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionQuit" text="Quit"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Undo"/>
+                        <MenuItem mnemonicParsing="false" text="Redo"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Cut"/>
+                        <MenuItem mnemonicParsing="false" text="Copy"/>
+                        <MenuItem mnemonicParsing="false" text="Paste"/>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Select All"/>
+                        <MenuItem mnemonicParsing="false" text="Unselect All"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#actionAbout" text="About JNN"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <center>
+                <JFXTabPane fx:id="tabPane" BorderPane.alignment="CENTER">
+                    <tabs>
+                        <Tab text="Data Source">
+                            <content>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                        <WebView fx:id="dataSourceWebView" prefHeight="200.0" prefWidth="200.0"
+                                                 BorderPane.alignment="CENTER"/>
+                                    </center>
+                                    <top>
+                                        <JFXToolbar BorderPane.alignment="CENTER">
+                                            <center>
+                                                <HBox spacing="10.0" BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <JFXButton onAction="#actionSelectDataSourceFile"
+                                                                   text="Select File"/>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                                    </padding>
+                                                </HBox>
+                                            </center>
+                                        </JFXToolbar>
+                                    </top>
+                                </BorderPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Scheme">
+                            <content>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                        <TableView fx:id="fieldTable" editable="true" prefHeight="200.0"
+                                                   prefWidth="200.0" BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn fx:id="fieldNameColumn" prefWidth="116.0"
+                                                             text="Field Name"/>
+                                                <TableColumn fx:id="fieldPurposeColumn" prefWidth="97.0"
+                                                             text="Purpose"/>
+                                                <TableColumn fx:id="fieldDataTypeColumn" prefWidth="108.0"
+                                                             text="Data Type"/>
+                                                <TableColumn fx:id="fieldParametersColumn" prefWidth="123.0"
+                                                             text="Parameters"/>
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                            </columnResizePolicy>
+                                        </TableView>
+                                    </center>
+                                    <top>
+                                        <JFXToolbar BorderPane.alignment="CENTER">
+                                            <center>
+                                                <HBox spacing="10.0" BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <JFXButton onAction="#actionOpen" text="Load Scheme..."/>
+                                                        <JFXButton onAction="#actionSave" text="Save Scheme"/>
+                                                        <JFXButton onAction="#actionSaveAs" text="Save As..."/>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                                    </padding>
+                                                </HBox>
+                                            </center>
+                                        </JFXToolbar>
+                                    </top>
+                                </BorderPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Network Layout">
+                            <content>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                        <ListView fx:id="hiddenLayerListView" editable="true" prefHeight="200.0"
+                                                  prefWidth="200.0" BorderPane.alignment="CENTER"/>
+                                    </center>
+                                    <top>
+                                        <JFXToolbar BorderPane.alignment="CENTER">
+                                            <center>
+                                                <HBox spacing="10.0" BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <JFXButton onAction="#actionAddLayer" text="Add Layer"/>
+                                                        <JFXButton onAction="#actionDeleteSelectedLayer"
+                                                                   text="Delete Selected Layer"/>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                                    </padding>
+                                                </HBox>
+                                            </center>
+                                        </JFXToolbar>
+                                    </top>
+                                </BorderPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Training">
+                            <content>
+                                <BorderPane fx:id="trainingMonitorBorderPane" prefHeight="200.0" prefWidth="200.0">
+                                    <right>
+                                        <VBox fx:id="trainingGaugesVBox" BorderPane.alignment="CENTER"/>
+                                    </right>
+                                    <top>
+                                        <JFXToolbar BorderPane.alignment="CENTER">
+                                            <center>
+                                                <VBox BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <FlowPane hgap="5.0" prefWidth="200.0" VBox.vgrow="NEVER">
+                                                            <children>
+                                                                <Label text="Training cycles: "/>
+                                                                <Spinner fx:id="epochSpinner" editable="true"/>
+                                                            </children>
+                                                            <padding>
+                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                            </padding>
+                                                            <VBox.margin>
+                                                                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                                                            </VBox.margin>
+                                                        </FlowPane>
+                                                        <FlowPane hgap="5.0" VBox.vgrow="NEVER">
+                                                            <children>
+                                                                <Label text="Training/Evaluation ratio:"/>
+                                                                <Slider fx:id="trainingRatioSlider" prefHeight="14.0"
+                                                                        prefWidth="241.0"/>
+                                                            </children>
+                                                            <padding>
+                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                            </padding>
+                                                            <VBox.margin>
+                                                                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                                                            </VBox.margin>
+                                                        </FlowPane>
+                                                        <FlowPane VBox.vgrow="NEVER">
+                                                            <VBox.margin>
+                                                                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                                                            </VBox.margin>
+                                                            <children>
+                                                                <Label fx:id="trainingRatioLabel"/>
+                                                            </children>
+                                                        </FlowPane>
+                                                    </children>
+                                                </VBox>
+                                            </center>
+                                            <right>
+                                                <HBox spacing="5.0" BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <JFXButton fx:id="trainButton" onAction="#actionTrain"
+                                                                   prefHeight="70.0"
+                                                                   style="-fx-background-color: #aaaaff;" text="Train"/>
+                                                        <JFXButton fx:id="stopTrainingButton" disable="true"
+                                                                   onAction="#actionStopTraining" prefHeight="70.0"
+                                                                   style="-fx-background-color: #ffaaaa;" text="Stop"/>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                                    </padding>
+                                                </HBox>
+                                            </right>
+                                            <left>
+                                                <JFXSpinner fx:id="trainingProgressIndicator" progress="0.0"
+                                                            BorderPane.alignment="CENTER"/>
+                                            </left>
+                                        </JFXToolbar>
+                                    </top>
+                                </BorderPane>
+                            </content>
+                        </Tab>
+                        <Tab fx:id="fitnessTab" text="Fitness">
+                            <content>
+                                <BorderPane fx:id="fitnessBorderPane"/>
+                            </content>
+                        </Tab>
+                        <Tab text="Evaluation">
+                            <content>
+                                <BorderPane fx:id="evaluationBorderPane" prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                        <TableView fx:id="evaluationTableView" editable="true" prefHeight="200.0"
+                                                   prefWidth="200.0" BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn fx:id="evaluationKeyTableColumn" editable="false"
+                                                             prefWidth="75.0" text="Field"/>
+                                                <TableColumn fx:id="evaluationValueTableColumn" prefWidth="75.0"
+                                                             text="Value"/>
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                            </columnResizePolicy>
+                                        </TableView>
+                                    </center>
+                                </BorderPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </JFXTabPane>
+            </center>
+        </BorderPane>
+    </children>
+</VBox>
