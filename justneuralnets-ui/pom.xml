@@ -160,7 +160,7 @@
             <!-- Since Java 16, JavaFX doesn't like being loaded from the anonymous root module. For the moment, it only emits a warning. -->
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>17.0.2</version>
+            <version>19</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
