@@ -120,8 +120,8 @@ public class JNNModelTrainer {
         for (int i = 0; i < epochs && !earlyStopRequested; i++) {
             int currentEpoch = i;
             jnnTrainingListeners.forEach(listener -> listener.startEpoch(currentEpoch));
-//            trainingDataSets.forEach((dataSet) -> multiLayerNetwork.fit(dataSet));
-            multiLayerNetwork.fit(viewIterator);
+            multiLayerNetwork.fit(trainingDataset);
+//            multiLayerNetwork.fit(viewIterator);
             INDArray output = multiLayerNetwork.output(evaluationDataset.getFeatures());
             Evaluation evaluation = new Evaluation();
             evaluation.eval(evaluationDataset.getLabels(), output);
@@ -204,6 +204,7 @@ public class JNNModelTrainer {
                 .build();
         MultiLayerNetwork multiLayerNetwork = new MultiLayerNetwork(multiLayerConfig);
         multiLayerNetwork.init();
+        System.out.println(multiLayerNetwork.summary());
         return multiLayerNetwork;
     }
 
