@@ -41,7 +41,7 @@ public class Main {
     public static void main(String[] arrghs) {
         try {
             JnnRepository repo = JnnRepository.getInstance();
-            String fileSpec = ".";
+            String[] fileSpec = new String[]{"."};
             int numFeatures = DEFAULT_NUMBER_OF_FEATURES;
             int numOccurrences = DEFAULT_NUMBER_OF_OCCURRENCES;
             int windowsSize = DEFAULT_WINDOW_SIZE;
@@ -55,7 +55,7 @@ public class Main {
                     return;
                 }
                 if (line.hasOption("s")) {
-                    fileSpec = line.getOptionValue("s");
+                    fileSpec = line.getOptionValues("s");
                 }
                 if (line.hasOption("n")) {
                     numFeatures = ((Number) line.getParsedOptionValue("n")).intValue();
@@ -76,22 +76,23 @@ public class Main {
             // Something to watch out for is endpoint security agents on Windows that lock MMIO storage at random points (when the 
             final NavigableSet<String> sentences = db.treeSet("sentences", Serializer.STRING).createOrOpen();
 
-            Files.walk(Paths.get(fileSpec)).filter(Files::isRegularFile).filter(p -> {
-                return p.toString().endsWith(".txt");
-            }).forEach((Path p) -> {
-                System.out.println(p.toString());
-                try {
-                    String body = IOUtils.toString(p.toUri(), "UTF-8");
-                    for (String sentence : body.split("[!\\.?\"\\:][ \\t\\n]")) {
-                        sentence = sentence.replaceAll("[^\\p{L}]+", " ");
-                        sentence = sentence.replaceAll(" +", " ");
-                        sentences.add(sentence.toLowerCase());
+            for (String file : fileSpec) {
+                Files.walk(Paths.get(file)).filter(Files::isRegularFile).filter(p -> {
+                    return p.toString().endsWith(".txt");
+                }).forEach((Path p) -> {
+                    System.out.println(p.toString());
+                    try {
+                        String body = IOUtils.toString(p.toUri(), "UTF-8");
+                        for (String sentence : body.split("[!\\.?\"\\:][ \\t\\n]")) {
+                            sentence = sentence.replaceAll("[^\\p{L}]+", " ");
+                            sentence = sentence.replaceAll(" +", " ");
+                            sentences.add(sentence.toLowerCase());
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (IOException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-
+                });
+            }
             SentenceIterator iter = new SentenceIterator() {
                 Iterator<String> iter = sentences.iterator();
                 SentencePreProcessor preProcessor = null;
@@ -174,7 +175,7 @@ public class Main {
 
     private static Options buildOptions() {
         Options options = new Options();
-        options.addOption(Option.builder("s").hasArg().longOpt("source-directory").type(String.class).desc("Directory from which to read the text corpus. Defaults to working directory.").build());
+        options.addOption(Option.builder("s").hasArgs().longOpt("source-directory").type(String.class).desc("Directory from which to read the text corpus. Defaults to working directory.").build());
         options.addOption(Option.builder("n").hasArg().longOpt("num-features").type(Number.class).desc("Number of output features/dimensions. Default: " + DEFAULT_NUMBER_OF_FEATURES).build());
         options.addOption(Option.builder("m").hasArg().longOpt("min-occurrences").type(Number.class).desc("The minimum number of occurrences that a word must have to be considered. Default:  " + DEFAULT_NUMBER_OF_OCCURRENCES).build());
         options.addOption(Option.builder("w").hasArg().longOpt("window-size").type(Number.class).desc("The width of the rolling window applied to word contexts. Default:  " + DEFAULT_WINDOW_SIZE).build());
