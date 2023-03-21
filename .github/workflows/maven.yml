@@ -23,7 +23,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B clean install site --file pom.xml
+      run: mvn -Djavacpp.platform=linux-x86_64 -B clean install site --file pom.xml
 
   build-win:
 
@@ -38,4 +38,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B clean install site --file pom.xml
+      run: mvn -Djavacpp.platform=windows-x86_64 -B clean install site --file pom.xml
