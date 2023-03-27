@@ -154,7 +154,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>19.0.2.1</version>
+            <version>20</version>
         </dependency>
         <dependency>
             <!-- Since Java 16, JavaFX doesn't like being loaded from the anonymous root module. For the moment, it only emits a warning. -->
