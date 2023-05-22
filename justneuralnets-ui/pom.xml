@@ -159,7 +159,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>20</version>
+            <version>20.0.1</version>
         </dependency>
         <dependency>
             <!-- Since Java 16, JavaFX doesn't like being loaded from the anonymous root module. For the moment, it only emits a warning. -->
